@@ -49,19 +49,14 @@ def plot_image(images):
 def PCA_images(images,label):
     image_data = []
     label_ = []
-    #95%
-    #100,60是0.954,0.868,0.886,LDP是0.871,0.741,0.773,RNN是0.876,0.716,0.758(5)，DPC是0.630,0.051,0.111,KDPC是0.940,0.836,0.855,SNNDPC是0.871,0.737,0.766(5),
-    # Dcore是0.888,0.759,0.784( r1=0.9,r2=0.81,r=0.92,t1=1,t2=0)
-    #200，111，HORC是0.909,0.746,0.762，LDP是0.845,0.568,0.612(只有18类),RNN是0.720,0.217,0.383(5)，DPC是0.685,0.073,0.108，KDPC是0.895,0.636,0.676，SNNDPC是0.822,0.504,0.557(5)
-    # Dcore是0.858,0.636,0.657( r1=0.9,r2=0.81,r=0.88,t1=1,t2=0)
+  
     for i in range(200):
         data = images[int(i/10)*10+i%10].flatten()#把100*112*92的三维数组变成100*10304的二维数组
         label_.append(label[int(i/10)*10+i%10])
         image_data.append(data)
     X = np.array(image_data)#每个图像数据降到一维后的列表
     data = pd.DataFrame(X)#打印的话，X可以显示列和行号的
-    # pca = PCA(n_components=111)
-    pca = PCA(n_components=60)
+    pca = PCA(.92)
     pca.fit(X)
     PCA_data = pca.transform(X)
     expained_variance_ratio = pca.explained_variance_ratio_.sum()#计算保留原始数据的多少
